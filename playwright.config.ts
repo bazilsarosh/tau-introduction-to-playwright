@@ -5,14 +5,14 @@ import baseEnvUrl from './utils/environmentBaseUrl';
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-require('dotenv').config();
+// import dotenv from 'dotenv';
+// dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  // testDir: './tests',
-
+  testDir: './e2e',
   /* Run tests in files in parallel */
   fullyParallel: true,
 
@@ -20,9 +20,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  // retries: process.env.CI ? 2 : 0,
-  retries: 2,
-
+  retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
 
@@ -71,10 +69,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { 
-        ...devices['Desktop Chrome'],
-        // viewport: { width: 1280, height: 720 },
-      },
+      use: { ...devices['Desktop Chrome'] },
     },
 
     {
@@ -150,7 +145,7 @@ export default defineConfig({
     // },
     // {
     //   name: 'Google Chrome',
-    //   use: { ..devices['Desktop Chrome'], channel: 'chrome' },
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
 
